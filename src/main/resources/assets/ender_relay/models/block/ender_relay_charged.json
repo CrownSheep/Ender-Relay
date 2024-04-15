@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "ender_relay:block/ender_relay_bottom",
+    "side": "ender_relay:block/ender_relay_side_on",
+    "top": "ender_relay:block/ender_relay_top_on",
+    "particle": "#bottom"
+  }
+}

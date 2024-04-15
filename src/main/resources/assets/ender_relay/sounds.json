@@ -1,0 +1,10 @@
+{
+  "ender_relay_charge": {
+    "subtitles": "sounds.ender_relay.ender_relay_charge",
+    "sounds": [
+      {
+        "name": "ender_relay:ender_relay_charge1"
+      }
+    ]
+  }
+}
