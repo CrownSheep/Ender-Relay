@@ -12,10 +12,10 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, EnderRelay.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> ENDER_RELAY_CHARGE = registerSoundEvents("ender_relay_charge");
+    public static final RegistryObject<SoundEvent> ENDER_RELAY_CHARGE = registerSoundEvent("ender_relay_charge");
 
-    private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-        return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(EnderRelay.MOD_ID, name)));
+    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(EnderRelay.MOD_ID, name)));
     }
 
     public static void register(IEventBus eventBus) {

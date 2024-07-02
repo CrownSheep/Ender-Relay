@@ -36,7 +36,7 @@ public class EnderRelayBlockEntity extends BlockEntity {
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if (level == null)
                 return false;
-            return (getLodestonePosition() != null || EnderRelayBlock.lodestoneExists(level, getBlockPos())) && stack.is(Items.END_CRYSTAL);
+            return (EnderRelayBlock.isEnd(level) ? (getLodestonePosition() != null || EnderRelayBlock.lodestoneExists(level, getBlockPos())) : true) && stack.is(Items.END_CRYSTAL);
         }
 
         @Override
@@ -50,9 +50,13 @@ public class EnderRelayBlockEntity extends BlockEntity {
     @Override
     public void setChanged() {
         super.setChanged();
-        if (level != null && hasCrystal()) {
-            EnderRelayBlock.setChargedBlockstate(level, getBlockState(), getBlockPos(), null, true);
-            level.playSound(null, (double) getBlockPos().getX() + 0.5D, (double) getBlockPos().getY() + 0.5D, (double) getBlockPos().getZ() + 0.5D, ModSounds.ENDER_RELAY_CHARGE.get(), SoundSource.PLAYERS, 1.0F, 0.9F + level.random.nextFloat() * 0.2F);
+        if(level != null) {
+            if (hasCrystal()){
+                EnderRelayBlock.setChargedBlockstate(level, getBlockState(), getBlockPos(), null, true);
+                level.playSound(null, (double) getBlockPos().getX() + 0.5D, (double) getBlockPos().getY() + 0.5D, (double) getBlockPos().getZ() + 0.5D, ModSounds.ENDER_RELAY_CHARGE.get(), SoundSource.PLAYERS, 1.0F, 0.9F + level.random.nextFloat() * 0.2F);
+            } else {
+                EnderRelayBlock.setChargedBlockstate(level, getBlockState(), getBlockPos(), null, false);
+            }
         }
     }
 
@@ -60,6 +64,10 @@ public class EnderRelayBlockEntity extends BlockEntity {
 
     public EnderRelayBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ENDER_RELAY_BLOCK_ENTITY.get(), pPos, pBlockState);
+    }
+
+    public boolean hasNoLodestonePosition() {
+        return getLodestonePosition() == null;
     }
 
     public BlockPos getLodestonePosition() {
@@ -93,21 +101,17 @@ public class EnderRelayBlockEntity extends BlockEntity {
 
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("Inventory"));
-        if (!NbtUtils.readBlockPos(pTag.getCompound("LodestonePos")).equals(BlockPos.ZERO)) {
-            lodestonePosition = NbtUtils.readBlockPos(pTag.getCompound("LodestonePos"));
-        }
+    public void load(CompoundTag nbt) {
+        if (nbt.contains("Inventory")) itemHandler.deserializeNBT(nbt.getCompound("Inventory"));
+        if (nbt.contains("LodestonePos") && !NbtUtils.readBlockPos(nbt.getCompound("LodestonePos")).equals(BlockPos.ZERO)) lodestonePosition = NbtUtils.readBlockPos(nbt.getCompound("LodestonePos"));
+        super.load(nbt);
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         pTag.put("Inventory", itemHandler.serializeNBT());
-        if (lodestonePosition != null) {
-            pTag.put("LodestonePos", NbtUtils.writeBlockPos(lodestonePosition));
-        }
+        if (lodestonePosition != null) pTag.put("LodestonePos", NbtUtils.writeBlockPos(lodestonePosition));
     }
 
     @Override

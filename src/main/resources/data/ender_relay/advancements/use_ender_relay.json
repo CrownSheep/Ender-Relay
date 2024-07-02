@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "ender_relay:ender_relay"
+    },
+    "title": {
+      "translate": "advancement.ender_relay.title"
+    },
+    "description": {
+      "translate": "advancement.ender_relay.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "minecraft:end/enter_end_gateway",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:use_ender_relay"
+    }
+  }
+}

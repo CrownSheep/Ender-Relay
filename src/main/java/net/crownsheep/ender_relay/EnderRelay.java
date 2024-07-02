@@ -1,6 +1,7 @@
 package net.crownsheep.ender_relay;
 
 import com.mojang.logging.LogUtils;
+import net.crownsheep.ender_relay.advancement.ModCriteriaTriggers;
 import net.crownsheep.ender_relay.block.ModBlocks;
 import net.crownsheep.ender_relay.block.custom.EnderRelayBlock;
 import net.crownsheep.ender_relay.block.entity.ModBlockEntities;
@@ -47,24 +48,25 @@ public class EnderRelay {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(ModCriteriaTriggers::registerCriteriaTriggers);
         DispenserBlock.registerBehavior(Items.END_CRYSTAL, new OptionalDispenseItemBehavior() {
-            public ItemStack execute(BlockSource p_123452_, ItemStack p_123453_) {
-                Direction direction = p_123452_.state().getValue(DispenserBlock.FACING);
-                BlockPos blockpos = p_123452_.pos().relative(direction);
-                Level level = p_123452_.level();
+            public ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
+                Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
+                BlockPos blockpos = blockSource.pos().relative(direction);
+                Level level = blockSource.level();
                 BlockState blockstate = level.getBlockState(blockpos);
                 this.setSuccess(true);
                 if (blockstate.is(ModBlocks.ENDER_RELAY.get())) {
                     if (!blockstate.getValue(EnderRelayBlock.CHARGED)) {
-                        EnderRelayBlock.charge(level, blockpos);
-                        p_123453_.shrink(1);
+                        EnderRelayBlock.charge(level, blockpos, null);
+                        itemStack.shrink(1);
                     } else {
                         this.setSuccess(false);
                     }
 
-                    return p_123453_;
+                    return itemStack;
                 } else {
-                    return super.execute(p_123452_, p_123453_);
+                    return super.execute(blockSource, itemStack);
                 }
             }
         });

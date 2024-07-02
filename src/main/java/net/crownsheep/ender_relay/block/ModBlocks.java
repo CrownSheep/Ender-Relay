@@ -25,7 +25,7 @@ public class ModBlocks {
             () -> new EnderRelayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops().strength(50.0F, 1200.0F)
-                    .lightLevel((blockState) -> blockState.getValue(EnderRelayBlock.CHARGED) ? 12 : 0)));
+                    .lightLevel((blockState) -> blockState.getValue(EnderRelayBlock.CHARGED) ? 15 : 0)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
