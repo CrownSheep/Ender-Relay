@@ -1,0 +1,26 @@
+{
+  "ender_relay_charge": {
+    "subtitle": "sounds.ender_relay.charge",
+    "sounds": [
+      {
+        "name": "ender_relay:charge1"
+      }
+    ]
+  },
+  "ender_relay_lock": {
+    "subtitle": "sounds.ender_relay.lock",
+    "sounds": [
+      {
+        "name": "ender_relay:lock1"
+      }
+    ]
+  },
+  "ender_relay_teleport": {
+    "subtitle": "sounds.ender_relay.teleport",
+    "sounds": [
+      {
+        "name": "ender_relay:teleport1"
+      }
+    ]
+  }
+}

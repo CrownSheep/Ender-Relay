@@ -1,0 +1,6 @@
+/.gradle/
+/build/
+/build/sourcesSets/main/
+/.idea/
+/run/
+/gradle/

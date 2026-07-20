@@ -1,0 +1,15 @@
+{
+  "advancement.ender_relay.title" : "Rely On The Relay",
+  "advancement.ender_relay.description" : "Use an Ender Relay to teleport in the End",
+
+  "block.ender_relay.ender_relay": "Ender Relay",
+
+  "sounds.ender_relay.charge": "Ender Relay charged",
+  "sounds.ender_relay.lock": "Lodestone locks to Ender Relay",
+  "sounds.ender_relay.teleport": "Player warps using Ender Relay",
+
+  "ender_relay.obstructed": "Lodestone is obstructed",
+  "ender_relay.out_of_bounds": "Lodestone is out of bounds",
+  "ender_relay.empty_location": "Unknown destination",
+  "ender_relay.lodestone_destroyed": "Lodestone was destroyed"
+}

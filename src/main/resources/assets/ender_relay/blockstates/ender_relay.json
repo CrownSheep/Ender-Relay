@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "charged=false": {
+      "model": "ender_relay:block/ender_relay"
+    },
+    "charged=true,linked=false": {
+      "model": "ender_relay:block/ender_relay_charged"
+    },
+    "charged=true,linked=true": {
+      "model": "ender_relay:block/ender_relay_linked"
+    }
+  }
+}
